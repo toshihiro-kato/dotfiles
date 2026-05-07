@@ -118,6 +118,8 @@ cask "claude"
 cask "chatgpt"
 cask "rive"
 cask "eagle"
+cask "chatgpt-atlas"
+cask "nani"
 
 # ============================================================
 # Casks - AWS / Security
@@ -139,21 +141,28 @@ cask "font-fira-code-nerd-font"
 
 # ============================================================
 # Mac App Store
-# ID は実機で `mas list` で確認すること（推定値）
+# 旧Mac の `_MASReceipt` 確認 + `mas search` で検証済み
 # ============================================================
-mas "Bartender 5",        id: 1668878948
 mas "Magnet",             id: 441258766
-mas "Keynote",            id: 409183694
-mas "Numbers",            id: 409203825
-mas "Pages",              id: 409201541
+mas "Keynote",            id: 361285480
+mas "Numbers",            id: 361304891
+mas "Pages",              id: 361309726
 mas "GarageBand",         id: 682658836
 mas "iMovie",             id: 408981434
 mas "Amazon Kindle",      id: 302584613
 mas "LINE",               id: 539883307
 mas "Dark Noise",         id: 1465439395
+mas "Cursor Pro",         id: 1447043133
+mas "DemoPro",            id: 1384206666
+mas "QuickShade",         id: 931571202
 # Affinity 製品は購入アカウント次第
 # mas "Affinity Designer 2", id: 1616831348
 # mas "Affinity Photo 2",    id: 1616822987
+# Bartender 5 は MAS 経由ではなく公式サイトから購入したライセンス版のため
+# cask `bartender` は現在 v6 配布。新Mac では旧ライセンスを引き継ぐ場合は
+# 公式 https://www.macbartender.com/ からダウンロードして手動アクティベート。
+# Numbers Creator Studio は com.apple.Numbers のリネーム版（上の Numbers でカバー）
+# 「ライフプラン」アプリは MAS 検索で名称ヒットせず、新Mac では手動再インストール
 
 # ============================================================
 # VSCode / Cursor extensions (--all-users で全ユーザー)
