@@ -5,9 +5,11 @@
 ## 0. 事前準備（旧Macで）
 
 - [ ] dotfiles 最新化: `chezmoi cd && git push`
-- [ ] **`~/.config/chezmoi/chezmoi.toml` を LastPass に保管**（Public リポに乗せない会社固有値が入っている）
-  - Secure Note 名: `chezmoi config (work)`
-  - 中身は `[data]` セクションの値だけ控えれば OK
+- [ ] **`~/.config/chezmoi/chezmoi.toml` の場所を確認**（Public リポに乗せない会社固有値が入っている）
+  - 引っ越し当日に **AirDrop** で旧Mac → 新Mac へ直接転送するのが最速
+  - 保険として **LastPass Secure Note** にも保管（Note 名: `chezmoi config (work)` / 中身は `[data]` セクション全文）
+  - AirDrop が使えない環境なら iCloud Drive 経由でも可（例: `~/iCloud Drive/Setup/chezmoi.toml`）
+  - 雛形は本ドキュメント 2 章に記載（最悪手で再入力しても 7 行で済む）
 - [ ] Brewfile 最新化: `brew bundle dump --file=~/.local/share/chezmoi/Brewfile --force`
 - [ ] plist エクスポート（最新化したいなら）:
   ```bash
@@ -38,9 +40,13 @@
 # 1. ターミナル.app を開く（最初は zsh）
 
 # 2. 先に chezmoi config を復元（template に値を渡すため）
+#    旧Mac から AirDrop で chezmoi.toml を受け取り、~/Downloads/ に置いておく
 mkdir -p ~/.config/chezmoi
-# LastPass の "chezmoi config (work)" Secure Note の中身を貼り付け
-$EDITOR ~/.config/chezmoi/chezmoi.toml
+mv ~/Downloads/chezmoi.toml ~/.config/chezmoi/chezmoi.toml
+# AirDrop が使えなければ:
+#   - LastPass Secure Note "chezmoi config (work)" の中身を貼り付け
+#   - もしくは iCloud Drive 経由 or 雛形を見ながら手で書く
+#   $EDITOR ~/.config/chezmoi/chezmoi.toml
 
 # 3. bootstrap を実行
 curl -fsSL https://raw.githubusercontent.com/toshihiro-kato/dotfiles/main/scripts/bootstrap.sh | bash
