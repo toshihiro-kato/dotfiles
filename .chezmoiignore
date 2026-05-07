@@ -1,3 +1,13 @@
+# Project meta files — these live in the chezmoi source repo, not in $HOME
+Brewfile
+README.md
+docs
+docs/**
+plists
+plists/**
+scripts
+scripts/**
+
 # macOS
 .DS_Store
 **/.DS_Store
