@@ -173,7 +173,7 @@ dotfiles 管理から除外（手動再生成）:
 | chezmoi config (work) | `chezmoi config (work)` | 2026-05-XX | AirDrop が主、これは保険 |
 | AWS credentials | `AWS credentials (~/.aws/credentials)` | 2026-05-07 | profiles: `default-long-term`, `dev`, `default`（SSO は別途 `aws sso login`） |
 | ライセンスキー | `App License Keys (master)` | 2026-05-07 | CleanShot X / Bartender 5 / Homerow を自動取得済。Affinity / Eagle / DemoPro / QuickShade は移行時に追記 |
-| Google IME 辞書 (TSV) | `Google IME user dictionary` | TODO | B5 で対応 |
+| Google IME 辞書 (TSV) | `Google IME user dictionary (TSV)` | 2026-05-07 | 14 行（個人情報含むため厳重管理）。実体ファイル `~/Downloads/google-ime-userdict.txt` |
 
 鍵を更新したら本テーブルの「最終更新」も更新する（ローテーション忘れ防止）。
 
