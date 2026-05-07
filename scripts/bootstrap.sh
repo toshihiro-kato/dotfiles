@@ -97,12 +97,14 @@ if [[ -f "$HOME/.config/fish/fish_plugins" ]]; then
 fi
 
 # ============================================================
-# 8. macOS defaults
+# 8. macOS defaults (OPT-IN)
 # ============================================================
-if [[ -d "$SOURCE_DIR/scripts/macos" ]]; then
-  log "Applying macOS defaults (sudo may prompt)"
-  bash "$SOURCE_DIR/scripts/macos/all.sh" || warn "some macos defaults failed"
-fi
+# 会社支給 Mac では Jamf Pro の MDM プロファイルと衝突する可能性があるため、
+# bootstrap では自動実行しない。手動で内容を確認してから:
+#   bash "$SOURCE_DIR/scripts/macos/all.sh" --apply
+# 会社 Mac で hotcorners を MDM に任せたい場合:
+#   bash "$SOURCE_DIR/scripts/macos/all.sh" --apply --skip hotcorners
+log "macOS defaults are OPT-IN; review and run manually if needed."
 
 # ============================================================
 # 9. 仕上げメッセージ
@@ -121,8 +123,11 @@ Manual steps required:
   - Import Google IME user dictionary (TSV)
   - Re-enter licenses for: CleanShot X, Bartender, Magnet, Affinity, Adobe CC
   - Grant accessibility permissions: Karabiner, Aerospace, Raycast, Homerow
+  - Apply macOS defaults manually (OPT-IN; check MDM conflicts on company Mac):
+      bash ~/.local/share/chezmoi/scripts/macos/all.sh --apply [--skip hotcorners]
 
 See docs/MIGRATION.md for the full checklist.
+For company-managed Macs, also see docs/COMPANY_REPLACEMENT.md.
 
   Log out and back in for all macOS settings to fully take effect.
 ========================================================
