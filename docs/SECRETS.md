@@ -75,6 +75,35 @@ Host github.com
   AddKeysToAgent yes
 ```
 
+#### 新Macでの復元手順
+
+```bash
+# 1) LastPass の各 Secure Note の Private Key 部分を貼り付け
+mkdir -p ~/.ssh
+$EDITOR ~/.ssh/id_ed25519           # work 用
+$EDITOR ~/.ssh/id_ed25519_personal  # personal 用
+
+# 2) 公開鍵も貼り付け（GitHub 比較用、なくてもログインはできる）
+$EDITOR ~/.ssh/id_ed25519.pub
+$EDITOR ~/.ssh/id_ed25519_personal.pub
+
+# 3) ~/.ssh/config 復元（LastPass の "SSH config" Note から）
+$EDITOR ~/.ssh/config
+
+# 4) パーミッション
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/id_ed25519 ~/.ssh/id_ed25519_personal ~/.ssh/config
+chmod 644 ~/.ssh/id_ed25519.pub ~/.ssh/id_ed25519_personal.pub
+
+# 5) Keychain 統合 + agent に追加
+ssh-add --apple-use-keychain ~/.ssh/id_ed25519
+ssh-add --apple-use-keychain ~/.ssh/id_ed25519_personal
+
+# 6) 動作確認
+ssh -T git@github.com              # → "Hi <work-account>! ..."
+ssh -T git@github.com-personal     # → "Hi <personal-account>! ..."
+```
+
 ### AWS
 
 - `~/.aws/config` は dotfiles に含めて OK（プロファイル名・リージョン）
@@ -117,6 +146,20 @@ dotfiles 管理から除外（手動再生成）:
 |------|------|----------|
 | `~/.config/uv/uv.toml` | 社内 PyPI プロキシ | `docs/MIGRATION.md` 4 章の手順で再生成 |
 | `~/.config/pip/pip.conf` | 同上 | 同上 |
+
+## 📦 LastPass バックアップ記録
+
+| 項目 | LastPass Note 名 | 最終更新 | 備考 |
+|------|----------------|---------|------|
+| SSH 鍵 (work) | `SSH key: id_ed25519 (work)` | 2026-05-07 | fingerprint `SHA256:nIaFIQqvjlGklQeWU71R0M6X9a9ITqH5NIuIPTvwpUU` |
+| SSH 鍵 (personal) | `SSH key: id_ed25519_personal` | 2026-05-07 | fingerprint `SHA256:r1VjXTIYZaUdmWbA5uWcA60w1T7GoD//OVFYHIsIM2I` |
+| `~/.ssh/config` | `SSH config (~/.ssh/config)` | 2026-05-07 | host alias `github.com-personal` 定義のみ |
+| chezmoi config (work) | `chezmoi config (work)` | 2026-05-XX | AirDrop が主、これは保険 |
+| AWS credentials | `AWS credentials` | TODO | B3 で対応 |
+| ライセンスキー | アプリごとの Secure Note | TODO | B4 で対応 |
+| Google IME 辞書 (TSV) | `Google IME user dictionary` | TODO | B5 で対応 |
+
+鍵を更新したら本テーブルの「最終更新」も更新する（ローテーション忘れ防止）。
 
 ## 旧Macで PAT を発見した実例（2026/05）
 
