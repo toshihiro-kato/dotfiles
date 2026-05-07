@@ -2,6 +2,9 @@
 
 旧Macから新Macに乗り換えるときの完全チェックリスト。
 
+**会社支給 Mac (Atrae) のリプレースなら、まず [`docs/COMPANY_REPLACEMENT.md`](./COMPANY_REPLACEMENT.md) を読むこと。**
+本ドキュメントは個人 Mac / 開発環境視点の手順で、会社固有の Atrae Self-Service / Security Project 対応は別途必要。
+
 ## 0. 事前準備（旧Macで）
 
 - [ ] dotfiles 最新化: `chezmoi cd && git push`
@@ -28,13 +31,37 @@
 - [ ] アプリのライセンスキー一覧を LastPass に保存
   - CleanShot X / Bartender 5 / Magnet / Affinity Designer/Photo / Eagle / Adobe CC
 
+## 0.5. Atrae 公式フローとの対応関係
+
+会社支給 Mac の場合、以下が **Atrae 情シス側で先に走る** 想定。dotfiles 適用前の前提条件として把握しておく:
+
+- Atrae の Notion 公式手順:
+  - PC リプレース全体: `notion://atrae/PC-18854be6e7ad80f78a78d33e74f8d086`
+  - macbook 初期化マニュアル: `notion://atrae/macbook-18854be6e7ad804aa6ede2c0b8fb1ce7`
+- 連携ポイント:
+  - **OneLogin → LastPass → Gmail** の順でログイン（LastPass の master password はここで必須）
+  - **Atrae Self-Service** (Jamf Pro) が業務アプリを自動配布するので、本書の「会社配布アプリ」章は最小限でよい
+  - **ローカルアカウント名は変更しない**（例: `toshihirokato` のまま）。dotfiles の `{{ .chezmoi.homeDir }}` 前提が崩れないようにする
+  - **Mac Migration Assistant は禁止**（本書 1 章の方針と一致）
+  - 旧 Mac の初期化は **Slack の Security Project に依頼するまで実施しない**
+- 詳細フロー & 完了報告手順は [`docs/COMPANY_REPLACEMENT.md`](./COMPANY_REPLACEMENT.md) を参照。
+
 ## 1. 新Macの初期化（macOS の初回起動）
 
 - [ ] Apple ID でサインイン
 - [ ] 言語/地域設定
 - [ ] **データ移行アシスタントは使わない**（不要なゴミも引き継いでしまうため、クリーン構築する）
+- [ ] 会社 Mac の場合のみ:
+  - [ ] **「新しい Mac として設定」** を選ぶ
+  - [ ] 言語: 日本語 / 地域: 日本
+  - [ ] WiFi: `Atrae_guest`（オフィスで実施する場合）
+  - [ ] **ローカルアカウント名を変更しない**（既存の Atrae 標準名を維持。chezmoi が `$HOME` 前提で動くため）
+  - [ ] OneLogin → LastPass → Gmail の順でサインイン
 
 ## 2. ターミナルで bootstrap
+
+> **会社 Mac の場合**: Atrae Self-Service の自動配布が「Complete」になってから実行する。
+> 配布中は brew 系のインストールと衝突する可能性がある。
 
 ```bash
 # 1. ターミナル.app を開く（最初は zsh）
@@ -73,7 +100,15 @@ curl -fsSL https://raw.githubusercontent.com/toshihiro-kato/dotfiles/main/script
 5. mise で言語ランタイム
 6. fish を default shell に
 7. fisher で fish plugin
-8. macOS defaults
+
+> **macOS defaults は OPT-IN**（自動実行しない）。
+> 会社 Mac では MDM プロファイルと衝突するため、内容を確認してから手動実行:
+> ```bash
+> # 個人 Mac
+> bash ~/.local/share/chezmoi/scripts/macos/all.sh --apply
+> # 会社 Mac (hotcorners は MDM の右下=ロック設定を尊重)
+> bash ~/.local/share/chezmoi/scripts/macos/all.sh --apply --skip hotcorners
+> ```
 
 ## 3. App Store にサインインしてから mas を再実行
 
@@ -115,9 +150,13 @@ brew bundle --file=~/.local/share/chezmoi/Brewfile
 
 ## 5. アプリへサインイン
 
+会社 Mac は **LastPass → OneLogin → Gmail** が最優先（これが揃わないと他のアプリにログインできない）。
+
+- [ ] **LastPass**（master password、最優先）
+- [ ] **OneLogin**（Atrae の SSO ハブ）
+- [ ] **Gmail / Google Workspace**（Atrae アカウント）
 - [ ] App Store
 - [ ] iCloud
-- [ ] LastPass
 - [ ] Slack（ワークスペースごと）
 - [ ] Notion / Notion Calendar
 - [ ] Cursor（Cursor Pro アカウント）
@@ -139,6 +178,10 @@ brew bundle --file=~/.local/share/chezmoi/Brewfile
 - [ ] Adobe Creative Cloud（CC アプリでサインイン → 各製品インストール）
 
 ## 7. アクセシビリティ許可
+
+> **会社 Mac の Hot Corners 注意**: Jamf Pro により右下=ロック画面が固定されている。
+> `scripts/macos/hotcorners.sh` の右下=Desktop 設定は次回ログイン時に MDM で上書きされる。
+> 右下を Desktop にしたい場合は Slack の Security Project にプロファイル変更を依頼すること。
 
 System Settings → Privacy & Security → Accessibility で以下を ON:
 - [ ] Karabiner-Elements / Karabiner-EventViewer
@@ -174,17 +217,22 @@ System Settings → Privacy & Security → Screen Recording:
 
 新Mac で同じ Extensions をインストール、Quicklinks/Snippets を再登録。
 
-## 10. 会社配布アプリ（情シスへ依頼）
+## 10. 会社配布アプリ（Atrae Self-Service による自動配布）
 
-新Mac 受領後、Atrae 情シスに以下を依頼:
+新Mac は OneLogin サインイン後、**Jamf Pro / Atrae Self-Service** が以下を自動配布する。
+基本的に「待つだけ」だが、漏れがあれば Slack の Security Project に依頼:
 
-- [ ] **Atrae Self-Service**（Jamf Pro 管理ポータル — これがあれば残りは自分で取れる場合あり）
-- [ ] **Netskope Client**（SASE エージェント）
-- [ ] **Netskope Endpoint DLP**
-- [ ] **SentinelOne**（EDR）
-- [ ] **AWS VPN Client**（社内固有 .ovpn 設定）
-- [ ] **Amazon Q**（業務利用なら）
-- [ ] **Adobe Creative Cloud アカウントの権限確認**（Illustrator 等使う場合）
+- [ ] **Atrae Self-Service** が起動済みか確認（管理ポータル本体）
+- [ ] 自動配布されているか確認:
+  - [ ] Netskope Client（SASE エージェント）
+  - [ ] Netskope Endpoint DLP
+  - [ ] SentinelOne（EDR）
+  - [ ] AWS VPN Client（社内固有 .ovpn 設定）
+- [ ] 必要に応じて Self-Service から手動インストール:
+  - [ ] Amazon Q（業務利用なら）
+- [ ] **Adobe Creative Cloud アカウントの権限確認**（Illustrator 等使う場合は別途依頼）
+
+> 個人 Mac の場合は本セクションをスキップ。
 
 ## 11. 個別ダウンロードアプリ（Brewfile cask に無いもの）
 
@@ -216,8 +264,14 @@ System Settings → Privacy & Security → Screen Recording:
   ghq list
   ```
 - [ ] 旧Macは初期化前に Time Machine フルバックアップ（保険）
+- [ ] 会社 Mac の場合: **Slack の Security Project に新 Mac セットアップ完了を報告**
+  - これが Atrae における正式な完了基準。Security Project からの確認後にしか旧 Mac は初期化できない
 
 ## 14. 旧Macのクリーンアップ（必要なら）
+
+> **会社 Mac の場合**: Slack の Security Project から「初期化していい」確認を得てから実施する。
+> 詳細は [`docs/COMPANY_REPLACEMENT.md`](./COMPANY_REPLACEMENT.md) と Atrae の Notion 公式手順
+> (`notion://atrae/macbook-18854be6e7ad804aa6ede2c0b8fb1ce7`) を参照。
 
 ```bash
 # Apple ID サインアウト
