@@ -1,0 +1,14 @@
+{
+  "selectedAuthType": "oauth-personal",
+  "theme": "Shades Of Purple",
+  "mcpServers": {
+    "pencil": {
+      "command": "/Users/toshihirokato/.pencil/mcp/cursor/out/mcp-server-darwin-arm64",
+      "args": [
+        "--app",
+        "cursor"
+      ],
+      "env": {}
+    }
+  }
+}

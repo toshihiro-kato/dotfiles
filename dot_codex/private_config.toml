@@ -1,0 +1,11 @@
+personality = "pragmatic"
+
+[mcp_servers.pencil]
+command = "/Users/toshihirokato/.pencil/mcp/cursor/out/mcp-server-darwin-arm64"
+args = [ "--app", "cursor" ]
+
+[projects."/Users/toshihirokato"]
+trust_level = "trusted"
+
+[plugins."github@openai-curated"]
+enabled = true

@@ -1,0 +1,279 @@
+# macOSのユーザーセッションにログイン後に実行されるコマンドを追加する ために利用することができる。
+# 'after-login-command'が動作するためには, 'start-at-login'が 'true'である必要があります.
+# 利用可能なコマンド: https://nikitabobko.github.io/AeroSpace/commands
+after-login-command = []
+
+# AeroSpace起動後に実行されるコマンドを追加するために使用することができる。
+# 'after-startup-command'は'after-login-command'の後に実行されます.
+# 利用可能なコマンド: https://nikitabobko.github.io/AeroSpace/commands
+after-startup-command = []
+
+# ログイン時に AeroSpace を使用する
+start-at-login = true
+
+# 正規化。参照: https://nikitabobko.github.io/AeroSpace/guide#normalization。
+# 自分が何をしているのか知っている筋金入りのi3ユーザーでない限り、正規化は有効にしておくことをお勧めする
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+# 参照: https://nikitabobko.github.io/AeroSpace/guide#layouts
+# accordion-padding' は, アコーディオンのパディングサイズを指定します.
+# パディング機能を無効にするには0を設定します。
+accordion-padding = 0
+
+# 取り得る値：タイル|アコーディオン
+default-root-container-layout = 'tiles'
+
+# 取りうる値: horizontal|vertical|auto
+# 'auto'の意味: ワイドモニタ(ハイモニタよりもワイドなもの)は水平方向に表示される、
+# 背の高いモニタ(幅が広いモニタよりも高いモニタ)は縦方向に表示されます。
+default-root-container-orientation = 'auto'
+
+# フォーカスされているモニターが変更されると、マウスがフォーカスに追従する
+# この動作が気に入らない場合は、設定から削除してください。
+# https://nikitabobko.github.io/AeroSpace/guide#on-focus-changed-callbacks を参照
+# https://nikitabobko.github.io/AeroSpace/commands#move-mouse を参照
+# フォールバック値(キーを省略した場合): on-focused-monitor-changed = [].
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+# on-focused-monitor-changed = ['move-mouse window-lazy-center']
+
+# このフラグをオンにすると、macOSの「アプリケーションを隠す」(cmd-h) 機能を効果的にオフにすることができます。
+# macOSのこの機能は使わないが、誤ってcmd-hキーやcmd-alt-hキーを押してしまった場合に便利。
+# https://nikitabobko.github.io/AeroSpace/goodies#disable-hide-app も参照
+automatically-unhide-macos-hidden-apps = false
+
+# 取りうる値: (qwerty|dvorak)# https://nikitabobko.github.io/AeroSpace/guide#key-mapping を参照
+[key-mapping]
+preset = 'qwerty'
+
+# ウィンドウ間(内側*)とモニタエッジ間(外側*)のギャップ.# 利用可能な値：
+# - 定数: gaps.outer.top = 8
+# - モニターごと: gaps.outer.top = [{ monitor.main = 16 }, { monitor. 「some-pattern」 = 32 }, 24].
+# この例では, 24はマッチしない場合のデフォルト値です.
+# モニターパターンは'workspace-to-monitor-force-assignment'と同じです.
+# 参照: https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
+[gaps]
+inner.horizontal = 0
+inner.vertical =   0
+outer.left =       0
+outer.bottom =     0
+outer.top =        0
+outer.right =      0
+
+# 'main' バインディングモード宣言
+# 参照：https://nikitabobko.github.io/AeroSpace/guide#binding-modes# 'main' バインディングモードは常に提示されなければなりません。
+# フォールバック値 (キーを省略した場合): mode.main.binding = {}
+[mode.main.binding]
+
+# すべての可能なキー：
+# アルファベット a, b, c, ..., z
+# 数字。       0, 1, 2, ..., 9
+# キーパッド0, キーパッド1, キーパッド2, ..., キーパッド9
+# f1, f2, ..., f20 # - Fキー.
+# マイナス、イコール、ピリオド、カンマ、スラッシュ、バックスラッシュ、クォート、セミコロン、バックスティック、
+# leftSquareBracket, rightSquareBracket, space, enter, esc, backspace, tab # - キーパッド特殊キー.
+# keypadClear, keypadDecimalMark, keypadDivide, keypadEnter, keypadEqual、
+# キーパッドマイナス、キーパッドマルチプライ、キーパッドプラス
+# 左、下、上、右
+
+# すべての可能な修飾子: cmd、alt、ctrl、shift
+
+# 全てのコマンド: https://nikitabobko.github.io/AeroSpace/commands
+
+# 参照: https://nikitabobko.github.io/AeroSpace/commands#exec-and-forget
+# 以下の行のコメントを外すことで、alt + enterショートカットでターミナルを開くことができます (i3のように)
+# alt-enter = '''exec-and-forget osascript -e ''
+# アプリケーションに 「Terminal」 と伝える
+# スクリプトを実行
+# アクティブにする
+# end tell'
+# '''
+
+# See: https://nikitabobko.github.io/AeroSpace/commands#layout
+alt-slash = 'layout tiles horizontal vertical'
+alt-comma = 'layout accordion horizontal vertical'
+
+# See: https://nikitabobko.github.io/AeroSpace/commands#focus
+# i3 wraps focus by default
+alt-h = 'focus --boundaries-action wrap-around-the-workspace left'
+alt-j = 'focus --boundaries-action wrap-around-the-workspace down'
+alt-k = 'focus --boundaries-action wrap-around-the-workspace up'
+alt-l = 'focus --boundaries-action wrap-around-the-workspace right'
+# alt-h = 'focus left'
+# alt-j = 'focus down'
+# alt-k = 'focus up'
+# alt-l = 'focus right'
+
+# See: https://nikitabobko.github.io/AeroSpace/commands#move
+alt-shift-h = 'move left'
+alt-shift-j = 'move down'
+alt-shift-k = 'move up'
+alt-shift-l = 'move right'
+
+# Consider using 'join-with' command as a 'split' replacement if you want to enable normalizations
+alt-ctrl-h = ['join-with left', 'mode main']
+alt-ctrl-j = ['join-with down', 'mode main']
+alt-ctrl-k = ['join-with up', 'mode main']
+alt-ctrl-l = ['join-with right', 'mode main']
+
+# alt-ctrl-h = 'split horizontal'
+# alt-ctrl-v = 'split vertical'
+
+alt-f = 'fullscreen'
+
+alt-s = 'layout v_accordion'               # 'layout stacking' in i3
+alt-w = 'layout h_accordion'               # 'layout tabbed' in i3
+alt-e = 'layout tiles horizontal vertical' # 'layout toggle split' in i3
+
+alt-shift-space = 'layout floating tiling' # 'floating toggle' in i3
+
+# Not supported, because this command is redundant in AeroSpace mental model.
+# See: https://nikitabobko.github.io/AeroSpace/guide#floating-windows
+#alt-space = 'focus toggle_tiling_floating'
+
+# `focus parent`/`focus child` are not yet supported, and it's not clear whether they
+# should be supported at all https://github.com/nikitabobko/AeroSpace/issues/5
+# alt-a = 'focus parent'
+
+# See: https://nikitabobko.github.io/AeroSpace/commands#resize
+alt-shift-minus = 'resize smart -50'
+alt-shift-equal = 'resize smart +50'
+
+alt-r = 'mode resize'
+
+[mode.resize.binding]
+h = 'resize width -50'
+j = 'resize height +50'
+k = 'resize height -50'
+l = 'resize width +50'
+
+# close window like i3
+alt-q = 'close'
+alt-shift-q = 'close-all-windows-but-current'
+
+# [workspace-to-monitor-force-assignment]
+# 1 = '^built-in retina display$'
+# 2 = 'main'
+# 3 = 'secondary'
+
+# See: https://nikitabobko.github.io/AeroSpace/commands#workspace
+# alt-1 = 'workspace 1'
+# alt-2 = 'workspace 2'
+# alt-3 = 'workspace 3'
+# alt-4 = 'workspace 4'
+# alt-5 = 'workspace 5'
+# alt-6 = 'workspace 6'
+# alt-7 = 'workspace 7'
+# alt-8 = 'workspace 8'
+
+alt-1 = 'summon-workspace 1'
+alt-2 = 'summon-workspace 2'
+alt-3 = 'summon-workspace 3'
+alt-4 = 'summon-workspace 4'
+alt-5 = 'summon-workspace 5'
+alt-6 = 'summon-workspace 6'
+alt-7 = 'summon-workspace 7'
+alt-8 = 'summon-workspace 8'
+alt-9 = 'summon-workspace 9'
+alt-0 = 'summon-workspace 10'
+
+alt-shift-1 = 'move-node-to-workspace 1'
+alt-shift-2 = 'move-node-to-workspace 2'
+alt-shift-3 = 'move-node-to-workspace 3'
+alt-shift-4 = 'move-node-to-workspace 4'
+alt-shift-5 = 'move-node-to-workspace 5'
+alt-shift-6 = 'move-node-to-workspace 6'
+alt-shift-7 = 'move-node-to-workspace 7'
+alt-shift-8 = 'move-node-to-workspace 8'
+alt-shift-9 = 'move-node-to-workspace 9'
+alt-shift-0 = 'move-node-to-workspace 10'
+
+# See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
+# alt-tab = 'workspace-back-and-forth'
+alt-tab = 'move-workspace-to-monitor --wrap-around prev'
+# See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
+alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+
+# See: https://nikitabobko.github.io/AeroSpace/commands#mode
+alt-shift-semicolon = 'mode service'
+
+# 'service' binding mode declaration.
+# See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
+# [mode.service.binding]
+
+alt-shift-r = 'reload-config'
+enter = ['mode main']
+esc = ['mode main']
+
+# alt-9 = 'workspace 9'
+# In your config, you can drop workspace bindings that you don't need
+# alt-a = 'workspace A' 
+# alt-b = 'workspace B'
+# alt-c = 'workspace C'
+# alt-d = 'workspace D'
+# alt-e = 'workspace E'
+# alt-f = 'workspace F'
+# alt-g = 'workspace G'
+# alt-i = 'workspace I'
+# alt-m = 'workspace M'
+# alt-n = 'workspace N'
+# alt-o = 'workspace O'
+# alt-p = 'workspace P'
+# alt-q = 'workspace Q'
+# alt-r = 'workspace R'
+# alt-s = 'workspace S'
+# alt-t = 'workspace T'
+# alt-u = 'workspace U'
+# alt-v = 'workspace V'
+# alt-w = 'workspace W'
+# alt-x = 'workspace X'
+# alt-y = 'workspace Y'
+# alt-z = 'workspace Z'
+
+# See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
+# alt-shift-1 = 'move-node-to-workspace 1'
+# alt-shift-2 = 'move-node-to-workspace 2'
+# alt-shift-3 = 'move-node-to-workspace 3'
+# alt-shift-4 = 'move-node-to-workspace 4'
+# alt-shift-5 = 'move-node-to-workspace 5'
+# alt-shift-6 = 'move-node-to-workspace 6'
+# alt-shift-7 = 'move-node-to-workspace 7'
+# alt-shift-8 = 'move-node-to-workspace 8'
+# alt-shift-9 = 'move-node-to-workspace 9'
+# alt-shift-a = 'move-node-to-workspace A'
+# alt-shift-b = 'move-node-to-workspace B'
+# alt-shift-c = 'move-node-to-workspace C'
+# alt-shift-d = 'move-node-to-workspace D'
+# alt-shift-e = 'move-node-to-workspace E'
+# alt-shift-f = 'move-node-to-workspace F'
+# alt-shift-g = 'move-node-to-workspace G'
+# alt-shift-i = 'move-node-to-workspace I'
+# alt-shift-m = 'move-node-to-workspace M'
+# alt-shift-n = 'move-node-to-workspace N'
+# alt-shift-o = 'move-node-to-workspace O'
+# alt-shift-p = 'move-node-to-workspace P'
+# alt-shift-q = 'move-node-to-workspace Q'
+# alt-shift-r = 'move-node-to-workspace R'
+# alt-shift-s = 'move-node-to-workspace S'
+# alt-shift-t = 'move-node-to-workspace T'
+# alt-shift-u = 'move-node-to-workspace U'
+# alt-shift-v = 'move-node-to-workspace V'
+# alt-shift-w = 'move-node-to-workspace W'
+# alt-shift-x = 'move-node-to-workspace X'
+# alt-shift-y = 'move-node-to-workspace Y'
+# alt-shift-z = 'move-node-to-workspace Z'
+
+# r = ['flatten-workspace-tree', 'mode main'] # reset layout
+# f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
+
+# sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
+# s = ['layout sticky tiling', 'mode main']
+
+# alt-shift-h = ['join-with left', 'mode main']
+# alt-shift-j = ['join-with down', 'mode main']
+# alt-shift-k = ['join-with up', 'mode main']
+# alt-shift-l = ['join-with right', 'mode main']
+
+# down = 'volume down'
+# up = 'volume up'
+# shift-down = ['volume set 0', 'mode main']

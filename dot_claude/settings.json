@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm type-check:*)",
+      "Bash(pnpm check:fix:*)",
+      "Bash(pnpm biome check:*)",
+      "Bash(gh pr list:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh run list:*)",
+      "Bash(gh release list:*)",
+      "Bash(gh release view:*)",
+      "Bash(git fetch:*)",
+      "Bash(gh api:*)",
+      "WebSearch",
+      "Bash(gh pr diff:*)",
+      "Bash(ls:*)",
+      "Bash(grep:*)",
+      "mcp__pencil"
+    ],
+    "defaultMode": "default"
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh",
+    "padding": 0
+  },
+  "enabledPlugins": {
+    "playwright-cli@playwright-cli": true,
+    "figma@claude-plugins-official": true
+  },
+  "language": "日本語",
+  "model": "claude-opus-4-7"
+}
