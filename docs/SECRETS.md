@@ -110,6 +110,22 @@ ssh -T git@github.com-personal     # → "Hi <personal-account>! ..."
 - `~/.aws/credentials` は **絶対にコミットしない**
 - `aws-vault` を使うと credentials は Keychain に保存され、ファイルから消える ✨
 
+#### 新Macでの復元手順
+
+```bash
+# 1) LastPass の "AWS credentials (~/.aws/credentials)" Note の Content を貼り付け
+mkdir -p ~/.aws
+$EDITOR ~/.aws/credentials
+chmod 600 ~/.aws/credentials
+
+# 2) 動作確認
+aws sts get-caller-identity --profile default
+aws sts get-caller-identity --profile dev
+
+# 3) SSO 系プロファイルはトークン再取得（credentials には含まれない）
+aws sso login --profile wevox_develop
+```
+
 ## 🚨 もし誤って commit/push してしまったら
 
 1. **即 revoke**（GitHub.com の Settings → Tokens で Delete）
@@ -155,7 +171,7 @@ dotfiles 管理から除外（手動再生成）:
 | SSH 鍵 (personal) | `SSH key: id_ed25519_personal` | 2026-05-07 | fingerprint `SHA256:r1VjXTIYZaUdmWbA5uWcA60w1T7GoD//OVFYHIsIM2I` |
 | `~/.ssh/config` | `SSH config (~/.ssh/config)` | 2026-05-07 | host alias `github.com-personal` 定義のみ |
 | chezmoi config (work) | `chezmoi config (work)` | 2026-05-XX | AirDrop が主、これは保険 |
-| AWS credentials | `AWS credentials` | TODO | B3 で対応 |
+| AWS credentials | `AWS credentials (~/.aws/credentials)` | 2026-05-07 | profiles: `default-long-term`, `dev`, `default`（SSO は別途 `aws sso login`） |
 | ライセンスキー | アプリごとの Secure Note | TODO | B4 で対応 |
 | Google IME 辞書 (TSV) | `Google IME user dictionary` | TODO | B5 で対応 |
 
