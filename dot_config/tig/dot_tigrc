@@ -1,0 +1,104 @@
+set main-view = id date author:full commit-title:yes,graph,refs
+set blame-view  = id:yes,color file-name:auto author:full date:default line-number:yes,interval=1 text
+set grep-view = file-name:auto line-number:yes,interval=1 text
+set reflog-view = line-number:yes,interval=1 id:yes date:no author:no commit-title:yes,refs,overflow=no
+set refs-view = line-number:yes id:no date:default author:full ref commit-title
+set stash-view  = line-number:yes,interval=1 id:no date:default author:full commit-title
+set status-view = line-number:yes,interval=1 status:short file-name
+set tree-view = line-number:yes,interval=1 mode author:full file-size date:default id:no file-name
+set diff-options = -m --first-parent
+set pager-view  = line-number:yes,interval=1 text
+set stage-view  = line-number:yes,interval=1 text
+set log-view    = line-number:yes,interval=1 text
+set blob-view   = line-number:yes,interval=1 text
+set diff-view   = line-number:yes,interval=1 text:yes,commit-title-overflow=no
+set diff-highlight = true
+color diff-header default magenta
+color diff-chunk  black   white
+set editor-line-number = yes
+set vertical-split = no
+set split-view-height = 80%
+set horizontal-scroll = 33%
+set wrap-lines = yes
+set tab-size = 2
+set ignore-case = true
+set ignore-space = at-eol
+set refresh-mode = auto
+set mouse = true
+bind generic P      ?git push -u %(remote) %(repo:head)
+bind generic U      ?git pull %(remote)
+bind generic F      ?git fetch %(remote)
+bind main    F      ?git fetch %(remote)
+bind generic L      !sh -c "git reflog --pretty=raw | tig --pretty=raw"
+bind generic _      ?git reset --hard HEAD@{"%(prompt Enter HEAD@{} number: )"}
+bind generic ^      ?git reset --soft HEAD^
+bind main    .      !sh -c "git diff %(commit) | tig"
+bind diff    .      !sh -c "git diff %(commit) | tig"
+bind refs    .      !sh -c "git diff %(branch) | tig"
+bind main    <Esc>. ?sh -c "git diff %(commit)..%(prompt Enter commit ID: ) | tig"
+bind diff    <Esc>. ?sh -c "git diff %(commit)..%(prompt Enter commit ID: ) | tig"
+bind refs    <Esc>. ?sh -c "git diff %(branch)..%(prompt Enter branch name: ) | tig"
+bind generic ~      :goto %(commit)^
+bind generic <Esc>~ :toggle line-graphics
+bind generic S      ?git stash save "%(prompt Enter stash comment: )"
+bind diff    Y      ?git stash pop %(stash)
+bind stash   Y      ?git stash pop %(stash)
+bind diff    <Esc>y ?git stash apply %(stash)
+bind stash   <Esc>y ?git stash apply %(stash)
+bind main    H      ?git reset --hard %(commit)
+bind diff    H      ?git reset --hard %(commit)
+bind refs    H      ?git reset --hard %(branch)
+bind status  H      ?git reset --hard HEAD
+bind generic `      @bash -c "echo -n '%(commit)' | pbcopy"
+bind stage   `      @bash -c "echo -n '%(file)' | pbcopy"
+bind status  `      @bash -c "echo -n '%(file)' | pbcopy"
+bind tree    `      @bash -c "echo -n '%(file)' | pbcopy"
+bind blob    `      @bash -c "echo -n '%(file)' | pbcopy"
+bind refs    D      ?git branch -d %(branch)
+bind status  D      ?git clean -df -- %(file)
+bind stash   D      ?git stash drop %(stash)
+bind tree    D      ?git rm %(file)
+bind main    x      ?git clean -df
+bind status  x      ?git clean -df
+bind refs    x      ?sh -c "git branch --merged | grep -vE '^\\*|master$|develop$' | xargs -I % git branch -d %"
+bind main    ;      @hub browse -- commit/%(commit)
+bind blame   ;      @hub browse -- commit/%(commit)
+bind diff    ;      @hub browse -- commit/%(commit)
+bind tree    ;      @hub browse -- blob/%(branch)/%(file)
+bind blob    ;      @hub browse -- blob/%(branch)/%(file)
+bind grep    ;      @hub browse -- blob/%(branch)/%(file)
+bind main    w      @hub browse -- compare/%(branch)?expand=1
+bind diff    w      @hub browse -- compare/%(branch)?expand=1
+bind refs    w      @hub browse -- compare/%(branch)?expand=1
+bind refs    M      ?git merge %(branch)
+bind refs    P      ?git push origin %(branch)
+bind refs    U      ?git pull origin %(branch)
+bind generic g      move-first-line
+bind generic G      move-last-line
+bind main    G      move-last-line
+bind generic E      view-grep
+bind main <Esc>g :toggle commit-title-graph
+bind generic n      move-down
+bind generic p      move-up
+bind diff    n      :/^@@
+bind diff    p      :?^@@
+bind diff    <Esc>n :/^diff --(git|cc)
+bind diff    <Esc>p :?^diff --(git|cc)
+bind stage   n      :/^@@
+bind stage   p      :?^@@
+bind stage   <Esc>n :/^diff --(git|cc)
+bind stage   <Esc>p :?^diff --(git|cc)
+bind pager   n      :/^@@
+bind pager   p      :?^@@
+bind pager   <Esc>n :/^diff --(git|cc)
+bind pager   <Esc>p :?^diff --(git|cc)
+bind log     n      :/^commit
+bind log     p      :?^commit
+bind generic V      view-pager
+bind generic <Ctrl-s> find-next
+bind generic <Ctrl-r> find-prev
+bind generic <Ctrl-v> move-page-down
+bind generic <Esc>v move-page-up
+bind generic <Ctrl-f> scroll-right
+bind generic <Ctrl-b> scroll-left
+bind generic <Ctrl-g> refresh

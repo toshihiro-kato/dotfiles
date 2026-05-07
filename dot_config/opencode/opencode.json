@@ -1,0 +1,13 @@
+{
+  "mcp": {
+    "pencil": {
+      "command": [
+        "/Users/toshihirokato/.pencil/mcp/cursor/out/mcp-server-darwin-arm64",
+        "--app",
+        "cursor"
+      ],
+      "enabled": true,
+      "type": "local"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+[core]
+	editor = nvim
+[push]
+	default = current
+[user]
+	email = 169126334+toshihiro-kato@users.noreply.github.com
+	name = toshihiro-kato
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[rerere]
+	enabled = true
+[coderabbit]
+	machineId = cli/127d4406dc7d460aa569ec8c313f080a
+[pull]
+	rebase = false
+[credential]
+	helper = osxkeychain

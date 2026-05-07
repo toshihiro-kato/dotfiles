@@ -1,0 +1,269 @@
+# ターミナルに表示する文字列の並び替え
+format = """
+$username\
+    $username\
+    $hostname\
+    $directory\
+    $git_branch\
+    $git_commit\
+    $git_state\
+    $git_metrics\
+    $git_status\
+    $docker_context\
+    $aws\
+    $gcloud\
+    $package\
+    $c\
+    $cmake\
+    $dart\
+    $deno\
+    $julia\
+    $kotlin\
+    $lua\
+    $nim\
+    $nodejs\
+    $python\
+    $ruby\
+    $rust\
+    $swift\
+    $vagrant\
+    $zig\
+    $conda\
+    $memory_usage\
+    $custom\
+    $time\
+    $cmd_duration\
+    $line_break\
+    $jobs\
+    $battery\
+    $status\
+    $shell\
+    $character"""
+
+# コマンドを実行したあとに改行を入れる
+add_newline = true
+
+# ファイルをスキャンするタイムアウト時間
+scan_timeout = 30
+
+# Starshipによって実行されたコマンドのタイムアウト時間
+command_timeout = 2000
+
+# ユーザーネームを非表示
+[username]
+disabled = false
+
+# ホストネームを ssh 接続のときのみ表示
+[hostname]
+ssh_only = true
+disabled = false
+format =  "[$hostname](#a277ff) "
+
+# ディレクトリの設定
+[directory]
+style = "#a277ff"
+truncation_length = 100
+truncate_to_repo = false
+format = "[$path]($style)[$read_only]($read_only_style) "
+
+# git
+# git_branch
+[git_branch]
+style = "#bdbdbd"
+symbol = "🌱 "
+truncation_length = 100
+truncation_symbol = ""
+format = "[$symbol$branch]($style)"
+
+# git_status
+[git_status]
+style = "#bdbdbd"
+conflicted = "="
+ahead = "[⇡${count}](#61ffca)"
+behind = "[⇣${count}](#61ffca)"
+diverged = "[⇕⇡${ahead_count}⇣${behind_count}](#61ffca)"
+untracked = "?"
+up_to_date = ""
+stashed = "≡"
+modified = "*"
+staged = '[++\($count\)](#61ffca)'
+renamed = "»"
+deleted = "✘"
+format = "[$all_status$ahead_behind]($style) "
+
+# docker
+[docker_context]
+disabled = true
+style = "#82e2ff"
+symbol = "🐋 "
+format = "[$symbol($context)]($style) "
+
+# パッケージ
+[package]
+disabled = true
+style = "#f694ff"
+symbol = "📦 "
+format = "[$symbol($version)]($style) "
+
+# c
+[c]
+disabled = false
+style = "#bdbdbd"
+symbol = "⚙️ "
+format = "[$symbol($version(-$name))]($style) "
+
+# cmake
+[cmake]
+disabled = false
+style = "#bdbdbd"
+symbol = "🔼 "
+format = "[$symbol($version)]($style) "
+
+# dart
+[dart]
+disabled = false
+style = "#82e2ff"
+symbol = "🔰 "
+format = "[$symbol($version)]($style) "
+
+# deno
+[deno]
+disabled = false
+style = "#edecee"
+symbol = "🦕 "
+format = "[$symbol($version)]($style) "
+
+# julia
+[julia]
+disabled = false
+style = "#a277ff"
+symbol = "🔵 "
+format = "[$symbol($version)]($style) "
+
+# kotlin
+[kotlin]
+disabled = false
+style = "#ffca85"
+symbol = "🔷 "
+format = "[$symbol($version)]($style) "
+
+# lua
+[lua]
+disabled = false
+style = "#a277ff"
+symbol = "🌕 "
+format = "[$symbol($version)]($style) "
+
+# nim
+[nim]
+disabled = false
+style = "#ffca85"
+symbol = "👑 "
+format = "[$symbol($version)]($style) "
+
+# nodejs
+[nodejs]
+disabled = false
+style = "#61ffca"
+symbol = "🤖 "
+format = "[$symbol($version)]($style) "
+
+# python
+[python]
+disabled = false
+style = "#ffca85"
+symbol = "👾 "
+pyenv_version_name = true
+format = '[${symbol}${pyenv_prefix}(${version})(\($virtualenv\) )]($style) '
+
+# ruby
+[ruby]
+disabled = false
+style = "#ff6767"
+symbol = "🔻 "
+format = "[$symbol($version)]($style) "
+
+# rust
+[rust]
+disabled = false
+style = "#ff6767"
+symbol = "🦀 "
+format = "[$symbol($version)]($style) "
+
+# swift
+[swift]
+disabled = false
+style = "#ff6767"
+symbol = "🕊️ "
+format = "[$symbol($version)]($style) "
+
+# vagrant
+[vagrant]
+disabled = false
+style = "#edecee"
+symbol = "⍱ "
+format = "[$symbol($version)]($style) "
+
+# zig
+[zig]
+disabled = false
+style = "#ffca85"
+symbol = "⚡ "
+format = "[$symbol($version)]($style) "
+
+# conda
+[conda]
+disabled = false
+style = "#61ffca"
+symbol = "🐍 "
+format = "[$symbol($version)]($style) "
+
+# memory_usage
+[memory_usage]
+disabled = true
+style = "#bdbdbd"
+symbol = "🏢 "
+format = "[$symbol($version)]($style) "
+
+# aws
+[aws]
+disabled = true
+style = "#ffca85"
+symbol = "🅰️ "
+format = '[$symbol($profile)(\($region\))]($style) '
+
+# google cloud
+[gcloud]
+disabled = true
+style = "#ffca85"
+symbol = "☁️ "
+format = '[$symbol($account)(@$domain)(\($region\))]($style) '
+
+# 現在時刻
+[time]
+disabled = true
+style = "#ffca85"
+time_format = "%T"
+format = '[$time]($style) '
+
+# コマンド実行時間
+[cmd_duration]
+disabled = true
+style = "#ffca85"
+min_time = 1 # millisecond
+format = "[$duration]($style) "
+
+# バッテリー
+[battery]
+full_symbol = "🔋 "
+charging_symbol = "⚡️ "
+discharging_symbol = "💀 "
+
+[[battery.display]]
+threshold = 30
+
+# 成功時とエラー時のシンボルを設定
+[character]
+success_symbol = "[➜](#61ffca)"
+error_symbol = "[✗](#ff6767)"
+vicmd_symbol = "[V](#61ffca)"
