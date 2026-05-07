@@ -1,0 +1,8 @@
+auto-install-peers = true
+save-exact = true
+@{{ .npm_work_scope }}:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${GITHUB_PACKAGES_TOKEN}
+min-release-age=5
+ignore-scripts=true
+registry={{ .npm_proxy_registry }}
+minimum-release-age=7200

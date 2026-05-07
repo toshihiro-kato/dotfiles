@@ -1,0 +1,19 @@
+[default]
+region = ap-northeast-1
+[profile dev]
+region = ap-northeast-1
+[profile wevox_develop]
+sso_session = wevox_develop
+sso_account_id = {{ .aws_dev_account_id }}
+sso_role_name = WevoxDevDeveloper
+region = ap-northeast-1
+[sso-session wevox_develop]
+sso_start_url = {{ .aws_sso_start_url }}
+sso_region = {{ .aws_sso_region }}
+sso_registration_scopes = sso:account:access
+[profile wevox_dev]
+sso_start_url = {{ .aws_sso_start_url }}
+sso_region = {{ .aws_sso_region }}
+sso_account_id = {{ .aws_prod_account_id }}
+sso_role_name = WevoxPrdDeveloper
+region = ap-northeast-1
