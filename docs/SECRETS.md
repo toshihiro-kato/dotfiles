@@ -170,7 +170,7 @@ dotfiles 管理から除外（手動再生成）:
 | SSH 鍵 (work) | `SSH key: id_ed25519 (work)` | 2026-05-07 | fingerprint `SHA256:nIaFIQqvjlGklQeWU71R0M6X9a9ITqH5NIuIPTvwpUU` |
 | SSH 鍵 (personal) | `SSH key: id_ed25519_personal` | 2026-05-07 | fingerprint `SHA256:r1VjXTIYZaUdmWbA5uWcA60w1T7GoD//OVFYHIsIM2I` |
 | `~/.ssh/config` | `SSH config (~/.ssh/config)` | 2026-05-07 | host alias `github.com-personal` 定義のみ |
-| chezmoi config (work) | `chezmoi config (work)` | 2026-05-XX | AirDrop が主、これは保険 |
+| chezmoi config (work) | `chezmoi config (work)` | 2026-05-07 | AirDrop が主、これは保険。588 bytes / 14 行 |
 | AWS credentials | `AWS credentials (~/.aws/credentials)` | 2026-05-07 | profiles: `default-long-term`, `dev`, `default`（SSO は別途 `aws sso login`） |
 | ライセンスキー | `App License Keys (master)` | 2026-05-07 | CleanShot X / Bartender 5 / Homerow を自動取得済。Affinity / Eagle / DemoPro / QuickShade は移行時に追記 |
 | Google IME 辞書 (TSV) | `Google IME user dictionary (TSV)` | 2026-05-07 | 14 行（個人情報含むため厳重管理）。実体ファイル `~/Downloads/google-ime-userdict.txt` |
