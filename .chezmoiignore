@@ -1,0 +1,34 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Backup files
+*.bak
+**/*.bak
+*.bak.*
+**/*.bak.*
+
+# Vim/Neovim runtime
+nvim_old/
+nvim_backup_*/
+nvim-backup-*/
+
+# Editor swap files
+*.swp
+*.swo
+
+# Local-only Claude state
+.claude/settings.local.json
+.claude/history.jsonl
+.claude/projects/
+.claude/sessions/
+.claude/tasks/
+.claude/todos/
+.claude/cache/
+.claude/file-history/
+.claude/paste-cache/
+.claude/shell-snapshots/
+.claude/telemetry/
+.claude/usage-data/
+.claude/statsig/
+.claude/backups/
