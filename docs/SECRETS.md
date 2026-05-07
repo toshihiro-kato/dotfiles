@@ -175,6 +175,7 @@ dotfiles 管理から除外（手動再生成）:
 | ライセンスキー | `App License Keys (master)` | 2026-05-07 | CleanShot X / Bartender 5 / Homerow を自動取得済。Affinity / Eagle / DemoPro / QuickShade は移行時に追記 |
 | Google IME 辞書 (TSV) | `Google IME user dictionary (TSV)` | 2026-05-07 | 14 行（個人情報含むため厳重管理）。実体ファイル `~/Downloads/google-ime-userdict.txt` |
 | Raycast .rayconfig パスワード | `Raycast .rayconfig (export password)` | 2026-05-07 | ファイル本体は iCloud Drive `~/Library/Mobile Documents/com~apple~CloudDocs/Setup/raycast.rayconfig` (2.7 MB)。LastPass には復号パスワードのみ |
+| Raycast post-import checklist | `Raycast settings (manual fallback)` | 2026-05-07 | `.rayconfig` で復元されない権限付与・Hotkey 再有効化・アカウント再ログインの手順 |
 
 鍵を更新したら本テーブルの「最終更新」も更新する（ローテーション忘れ防止）。
 
