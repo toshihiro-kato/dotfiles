@@ -2,6 +2,12 @@
 # Hot corners
 # 値: 1=Disabled 2=Mission Control 3=Application Windows 4=Desktop 5=Start Screen Saver
 #     6=Disable Screen Saver 7=Dashboard 10=Put Display to Sleep 11=Launchpad 12=Notification Center
+#
+# ⚠️  Atrae 会社支給 Mac では Jamf Pro の MDM プロファイルで
+#     右下コーナー = ロック画面 (wvous-br-corner=13) に固定されている。
+#     ここでの defaults write は次回ログイン時に MDM で上書きされる。
+#     右下を Desktop にしたい場合は情シス/Security Project 経由で
+#     プロファイル変更を依頼すること。
 set -euo pipefail
 echo "==> hot corners"
 
