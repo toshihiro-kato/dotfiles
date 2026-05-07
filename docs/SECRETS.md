@@ -6,17 +6,17 @@
 
 | 種類 | パス | 推奨保管先 |
 |------|------|-----------|
-| SSH 秘密鍵 | `~/.ssh/id_*`（`.pub` 以外） | 1Password (Secure Note) |
-| GPG 秘密鍵 | `~/.gnupg/private-keys-*` | 1Password |
-| AWS 認証情報 | `~/.aws/credentials` | 1Password |
-| GitHub PAT (Classic) | `ghp_*` | 1Password |
-| GitHub PAT (Fine-grained) | `github_pat_*` | 1Password |
-| OpenAI / Anthropic API Key | `sk-*` / `sk-ant-*` | 1Password |
-| `.netrc` | `~/.netrc` | 1Password |
+| SSH 秘密鍵 | `~/.ssh/id_*`（`.pub` 以外） | LastPass (Secure Note) |
+| GPG 秘密鍵 | `~/.gnupg/private-keys-*` | LastPass |
+| AWS 認証情報 | `~/.aws/credentials` | LastPass |
+| GitHub PAT (Classic) | `ghp_*` | LastPass |
+| GitHub PAT (Fine-grained) | `github_pat_*` | LastPass |
+| OpenAI / Anthropic API Key | `sk-*` / `sk-ant-*` | LastPass |
+| `.netrc` | `~/.netrc` | LastPass |
 | `.git-credentials` | `~/.git-credentials` | 削除して osxkeychain 使用 |
-| Google IME 辞書 (両方セット) | `~/Library/Application Support/Google/JapaneseInput/.history.db` + `.encrypt_key.db` | TSV エクスポートして 1Password |
-| ライセンスキー | アプリ plist 内の `activationKey` 等 | 1Password |
-| `.npmrc` の Token | 平文コミット禁止 → 環境変数化 | 1Password |
+| Google IME 辞書 (両方セット) | `~/Library/Application Support/Google/JapaneseInput/.history.db` + `.encrypt_key.db` | TSV エクスポートして LastPass |
+| ライセンスキー | アプリ plist 内の `activationKey` 等 | LastPass |
+| `.npmrc` の Token | 平文コミット禁止 → 環境変数化 | LastPass |
 | `~/.claude.json` | 認証情報含む | 自動生成、コミット不要 |
 
 ## ✅ チェック方法
@@ -54,10 +54,10 @@ fish の universal variable に保存:
 set -Ux GITHUB_PACKAGES_TOKEN ghp_xxxxx
 ```
 
-将来的には [1Password CLI 連携](https://developer.1password.com/docs/cli/) で:
+将来的には LastPass CLI（[lpass](https://github.com/lastpass/lastpass-cli)）連携で:
 
 ```fish
-set -gx GITHUB_PACKAGES_TOKEN (op read "op://Private/GitHub PAT (npm)/credential")
+set -gx GITHUB_PACKAGES_TOKEN (lpass show --password "GitHub PAT (npm)")
 ```
 
 ### SSH
@@ -109,6 +109,7 @@ template 化済みファイル:
 | `dot_config/private_fish/config.fish.tmpl` | `gcp_project` |
 | `private_dot_npmrc.tmpl` | `npm_work_scope`, `npm_proxy_registry` |
 | `private_dot_bunfig.toml.tmpl` | `npm_proxy_registry` |
+| `private_dot_yarnrc.yml.tmpl` | `npm_proxy_registry` |
 
 dotfiles 管理から除外（手動再生成）:
 

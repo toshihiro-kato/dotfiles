@@ -5,7 +5,7 @@
 ## 0. 事前準備（旧Macで）
 
 - [ ] dotfiles 最新化: `chezmoi cd && git push`
-- [ ] **`~/.config/chezmoi/chezmoi.toml` を 1Password に保管**（Public リポに乗せない会社固有値が入っている）
+- [ ] **`~/.config/chezmoi/chezmoi.toml` を LastPass に保管**（Public リポに乗せない会社固有値が入っている）
   - Secure Note 名: `chezmoi config (work)`
   - 中身は `[data]` セクションの値だけ控えれば OK
 - [ ] Brewfile 最新化: `brew bundle dump --file=~/.local/share/chezmoi/Brewfile --force`
@@ -16,14 +16,14 @@
   /usr/libexec/PlistBuddy -c "Delete :activationKey" ~/.local/share/chezmoi/plists/pl.maketheweb.cleanshotx.plist
   ```
 - [ ] 機微情報のバックアップ（`docs/SECRETS.md` 参照）
-  - [ ] SSH 鍵 (`~/.ssh/id_*`) → 1Password
-  - [ ] AWS 認証情報 (`~/.aws/credentials`) → 1Password
+  - [ ] SSH 鍵 (`~/.ssh/id_*`) → LastPass
+  - [ ] AWS 認証情報 (`~/.aws/credentials`) → LastPass
   - [ ] `.npmrc` の GitHub Packages トークン
   - [ ] `~/.netrc`（あれば）
 - [ ] Google 日本語入力のユーザー辞書をエクスポート
   - 設定 → 辞書ツール → 管理 → エクスポート → TSV ファイル
-  - 1Password の Secure Note か USB 経由で運ぶ
-- [ ] アプリのライセンスキー一覧を 1Password に保存
+  - LastPass の Secure Note か USB 経由で運ぶ
+- [ ] アプリのライセンスキー一覧を LastPass に保存
   - CleanShot X / Bartender 5 / Magnet / Affinity Designer/Photo / Eagle / Adobe CC
 
 ## 1. 新Macの初期化（macOS の初回起動）
@@ -39,7 +39,7 @@
 
 # 2. 先に chezmoi config を復元（template に値を渡すため）
 mkdir -p ~/.config/chezmoi
-# 1Password の "chezmoi config (work)" Secure Note の中身を貼り付け
+# LastPass の "chezmoi config (work)" Secure Note の中身を貼り付け
 $EDITOR ~/.config/chezmoi/chezmoi.toml
 
 # 3. bootstrap を実行
@@ -55,6 +55,8 @@ curl -fsSL https://raw.githubusercontent.com/toshihiro-kato/dotfiles/main/script
   aws_sso_start_url = "https://...awsapps.com/start/#"
   aws_sso_region = "ap-northeast-1"
   gcp_project = "..."
+  npm_work_scope = "..."
+  npm_proxy_registry = "https://.../"
 ```
 
 `bootstrap.sh` が以下を自動実行:
@@ -80,14 +82,14 @@ brew bundle --file=~/.local/share/chezmoi/Brewfile
 
 - [ ] **SSH 鍵**
   ```bash
-  # 1Password から ~/.ssh/ にコピー
+  # LastPass から ~/.ssh/ にコピー
   chmod 600 ~/.ssh/id_ed25519 ~/.ssh/id_ed25519_personal
   chmod 644 ~/.ssh/id_ed25519.pub ~/.ssh/id_ed25519_personal.pub
   ssh-add --apple-use-keychain ~/.ssh/id_ed25519
   ```
 - [ ] **AWS**
   ```bash
-  # ~/.aws/credentials を 1Password から復元
+  # ~/.aws/credentials を LastPass から復元
   chmod 600 ~/.aws/credentials
   ```
 - [ ] **GitHub CLI**
@@ -100,7 +102,7 @@ brew bundle --file=~/.local/share/chezmoi/Brewfile
   set -Ux GITHUB_PACKAGES_TOKEN ghp_xxxxx
   ```
 - [ ] **社内 PyPI プロキシ** — dotfiles に含めず手動再生成
-  - URL は 1Password Secure Note `chezmoi config (work)` に保管（`pypi_proxy_url`）
+  - URL は LastPass Secure Note `chezmoi config (work)` に保管（`pypi_proxy_url`）
   - 旧 Mac でのファイル内容を控えてから新 Mac で復元する:
     - `~/.config/uv/uv.toml`
     - `~/.config/pip/pip.conf`
@@ -109,7 +111,7 @@ brew bundle --file=~/.local/share/chezmoi/Brewfile
 
 - [ ] App Store
 - [ ] iCloud
-- [ ] 1Password
+- [ ] LastPass
 - [ ] Slack（ワークスペースごと）
 - [ ] Notion / Notion Calendar
 - [ ] Cursor（Cursor Pro アカウント）
@@ -123,11 +125,11 @@ brew bundle --file=~/.local/share/chezmoi/Brewfile
 
 ## 6. ライセンス再認証
 
-- [ ] CleanShot X（`activationKey` を 1Password から）
-- [ ] Bartender 5
-- [ ] Magnet
+- [ ] CleanShot X（`activationKey` を LastPass から）
+- [ ] Bartender 5（公式サイトから DMG 落として旧ライセンスでアクティベート）
+- [ ] Magnet（MAS インストールでアカウント引き継ぎ）
 - [ ] Eagle
-- [ ] Affinity Designer 2 / Photo 2
+- [ ] Affinity Designer 2 / Photo 2（MAS or Affinity Store どちらで購入したかで分岐）
 - [ ] Adobe Creative Cloud（CC アプリでサインイン → 各製品インストール）
 
 ## 7. アクセシビリティ許可
@@ -139,12 +141,15 @@ System Settings → Privacy & Security → Accessibility で以下を ON:
 - [ ] Homerow
 - [ ] CleanShot X
 - [ ] AutoRaise（使うなら）
+- [ ] KeyClu
 
 System Settings → Privacy & Security → Input Monitoring:
 - [ ] Karabiner-Elements
 
 System Settings → Privacy & Security → Screen Recording:
 - [ ] CleanShot X
+- [ ] DemoPro
+- [ ] QuickShade
 
 ## 8. Google 日本語入力
 
@@ -165,27 +170,34 @@ System Settings → Privacy & Security → Screen Recording:
 
 ## 10. 会社配布アプリ（情シスへ依頼）
 
-- [ ] Atrae Self-Service
-- [ ] Netskope Client / Endpoint DLP
-- [ ] SentinelOne
-- [ ] AWS VPN Client（社内固有設定）
-- [ ] Amazon Q（業務利用なら）
+新Mac 受領後、Atrae 情シスに以下を依頼:
 
-## 11. 個別ダウンロードアプリ
+- [ ] **Atrae Self-Service**（Jamf Pro 管理ポータル — これがあれば残りは自分で取れる場合あり）
+- [ ] **Netskope Client**（SASE エージェント）
+- [ ] **Netskope Endpoint DLP**
+- [ ] **SentinelOne**（EDR）
+- [ ] **AWS VPN Client**（社内固有 .ovpn 設定）
+- [ ] **Amazon Q**（業務利用なら）
+- [ ] **Adobe Creative Cloud アカウントの権限確認**（Illustrator 等使う場合）
 
-Brewfile cask に無いものは公式サイトから:
-- [ ] Adobe Creative Cloud (https://creativecloud.adobe.com/)
-- [ ] DemoPro
-- [ ] Pencil（pencil.com からダウンロード or App Store）
-- [ ] AppCode（JetBrains Toolbox 推奨）
-- [ ] QuickShade
-- [ ] DisplayLink Manager（DisplayLink 公式）
-- [ ] Belkin Dock Utility（Belkin 公式）
+## 11. 個別ダウンロードアプリ（Brewfile cask に無いもの）
+
+公式サイトから直接 DMG を取得:
+
+- [ ] **Bartender 5** — https://www.macbartender.com/ （cask `bartender` は v6 配布のため、旧ライセンスを使う場合は公式から v5 を取得）
+- [ ] **AutoRaise** — https://github.com/sbmpost/AutoRaise/releases （cask 無し）
+- [ ] **AppCode** — JetBrains Toolbox 経由（cask 無し、製品は EOL のため代替推奨）
+- [ ] **Pencil.app** — https://www.gethighagency.com/pencil
+- [ ] **Belkin Dock Utility** — Belkin 公式
+- [ ] **Adobe Illustrator / Adobe Creative Cloud** — Creative Cloud アプリから
+- [ ] **Dia** — https://www.diabrowser.com/ （Arc 後継、利用継続するなら）
+- [ ] **「ライフプラン」アプリ** — App Store の名称検索で再インストール（mas search で ID 不明）
 
 ## 12. ハードウェア依存設定
 
 - [ ] Logi Options+（Logi アカウントでデバイス設定同期）
 - [ ] VIA / QMK Toolbox（キーボード）
+- [ ] DisplayLink Manager（cask `displaylink` で入るが、デバイス接続後に Screen Recording 許可が必要）
 
 ## 13. 仕上げ
 
@@ -199,7 +211,7 @@ Brewfile cask に無いものは公式サイトから:
   ```
 - [ ] 旧Macは初期化前に Time Machine フルバックアップ（保険）
 
-## 13. 旧Macのクリーンアップ（必要なら）
+## 14. 旧Macのクリーンアップ（必要なら）
 
 ```bash
 # Apple ID サインアウト

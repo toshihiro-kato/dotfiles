@@ -116,8 +116,8 @@ Manual steps required:
   - Sign in to App Store and run: brew bundle --file=~/.local/share/chezmoi/Brewfile
   - Sign in to: Slack / Notion / Cursor / Claude / GitButler / Docker / Raycast
   - gh auth login           (GitHub CLI authentication)
-  - Restore SSH keys to ~/.ssh/ (from 1Password)
-  - Restore AWS credentials to ~/.aws/credentials (from 1Password)
+  - Restore SSH keys to ~/.ssh/ (from LastPass)
+  - Restore AWS credentials to ~/.aws/credentials (from LastPass)
   - Import Google IME user dictionary (TSV)
   - Re-enter licenses for: CleanShot X, Bartender, Magnet, Affinity, Adobe CC
   - Grant accessibility permissions: Karabiner, Aerospace, Raycast, Homerow
