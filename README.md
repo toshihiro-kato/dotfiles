@@ -55,6 +55,7 @@ bash ~/dotfiles/scripts/bootstrap.sh
 - **VSCode / Cursor 拡張**: Brewfile vscode 行
 - **fish プラグイン**: fisher + `fish_plugins`
 - **アプリ GUI 設定（一部）**: plist インポート（Homerow, CleanShot X）
+- **Figma メニューショートカット**: `scripts/macos/figma.sh` で 25 件の `Ctrl+Shift+<key>` を設定
 
 ### 自動化されない領域（手動）
 
@@ -66,6 +67,7 @@ bash ~/dotfiles/scripts/bootstrap.sh
 - Google 日本語入力のユーザー辞書（TSV エクスポート/インポート）
 - GitHub PAT の再発行（`gh auth login`）
 - アクセシビリティ許可（Karabiner / Aerospace / Raycast / Homerow）
+- Figma メニューショートカットの System Settings UI 表示（TCC 制約で初回 1 件のみ手動追加が必要、`docs/MIGRATION.md` §7.5 参照）
 - 会社配布アプリ（Atrae Self-Service / Netskope / SentinelOne）
 
 詳細は [docs/MIGRATION.md](docs/MIGRATION.md) を参照。

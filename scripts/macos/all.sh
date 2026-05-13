@@ -51,7 +51,7 @@ echo
 # 管理者権限が必要な処理があるので最初に sudo を取得しておく
 sudo -v
 
-for name in trackpad keyboard finder dock screenshot hotcorners menubar sound general security screensaver apps; do
+for name in trackpad keyboard finder dock screenshot hotcorners menubar sound general security screensaver apps figma; do
   if skipped "$name"; then
     echo "==> [skip] $name"
     continue

@@ -200,6 +200,30 @@ System Settings → Privacy & Security → Screen Recording:
 - [ ] DemoPro
 - [ ] QuickShade
 
+## 7.5. Figma メニューショートカット
+
+`scripts/macos/all.sh --apply` で `scripts/macos/figma.sh` が走り、25 件のショートカットが
+`~/Library/Preferences/com.figma.Desktop.plist` の `NSUserKeyEquivalents` に書き込まれる
+（Plugins → Saved plugins 配下 24 件 + Object → Main Component 1 件、`Ctrl+Shift+<key>`）。
+
+ショートカット自体は手動操作なしで動作する。System Settings → キーボード → アプリのショートカット
+の UI にも一覧表示したい場合のみ、以下の **初回 1 件手動追加** が必要:
+
+- [ ] `bash ~/.local/share/chezmoi/scripts/macos/figma.sh` を実行
+- [ ] スクリプト出力に `universalaccess write was blocked` と出た場合のみ:
+  1. System Settings → キーボード → キーボードショートカット → アプリのショートカット
+  2. `+` ボタン → アプリケーション: Figma → 任意のメニュー項目を 1 件だけ手動追加
+     （例: `Create Component from Objects` / `Ctrl+Shift+M`）
+  3. もう一度 `bash ~/.local/share/chezmoi/scripts/macos/figma.sh`
+  4. 25 件すべてが UI に並ぶ
+- [ ] Figma を再起動して動作確認
+
+> **仕組み**: System Settings UI は `~/Library/Preferences/com.apple.universalaccess.plist`
+> の `com.apple.custommenu.apps` に bundle ID が登録されているアプリだけを表示する。
+> このキーは macOS Ventura+ で TCC により保護されており、`defaults write` 単体では書けない。
+> UI から 1 件追加すると副作用で bundle ID が登録され、以降は `defaults write` で書いた分も
+> 全部 UI に出るようになる。
+
 ## 8. Google 日本語入力
 
 1. 旧Mac でエクスポートした **TSV ファイル** を新Macに転送
