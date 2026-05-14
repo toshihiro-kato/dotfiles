@@ -15,10 +15,13 @@
       "Bash(gh pr diff:*)",
       "Bash(ls:*)",
       "Bash(grep:*)",
-      "mcp__pencil"
+      "mcp__pencil",
+      "mcp__claude_ai_Figma__get_design_context",
+      "mcp__claude_ai_Figma__get_screenshot"
     ],
     "defaultMode": "default"
   },
+  "model": "claude-opus-4-7",
   "statusLine": {
     "type": "command",
     "command": "~/.claude/statusline.sh",
@@ -29,5 +32,5 @@
     "figma@claude-plugins-official": true
   },
   "language": "日本語",
-  "model": "claude-opus-4-7"
+  "theme": "dark"
 }
