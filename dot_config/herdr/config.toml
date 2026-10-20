@@ -1,0 +1,52 @@
+onboarding = false
+
+[theme]
+name = "dracula"
+auto_switch = false
+
+# zellij (~/.config/zellij/config.kdl) の操作感を再現する
+# - zellij の shared_except "locked" 相当 (Alt 系) は直打ち
+# - pane / tab / session mode 相当は prefix (alt+p) 配下に集約。tab 系は shift 付き
+[keys]
+prefix = "alt+p"
+
+# --- 直打ち ---
+focus_pane_left = "alt+h"
+focus_pane_down = "alt+j"
+focus_pane_up = "alt+k"
+focus_pane_right = "alt+l"
+split_vertical = ["alt+n", "prefix+r"]
+zoom = ["alt+f", "prefix+f"]
+resize_mode = "alt+r"
+resize_pane_left = "alt+shift+h"
+resize_pane_down = "alt+shift+j"
+resize_pane_up = "alt+shift+k"
+resize_pane_right = "alt+shift+l"
+previous_tab = "alt+["
+next_tab = "alt+]"
+move_tab_previous = "alt+shift+i"
+move_tab_next = "alt+shift+o"
+
+# --- prefix: pane mode 相当 ---
+split_horizontal = "prefix+d"
+close_pane = "prefix+x"
+rename_pane = "prefix+c"
+cycle_pane_next = "prefix+p"
+last_pane = "prefix+tab"
+edit_scrollback = "prefix+e"
+
+# --- prefix: tab mode 相当 ---
+new_tab = "prefix+shift+n"
+close_tab = "prefix+shift+x"
+rename_tab = "prefix+shift+r"
+switch_tab = "prefix+1..9"
+
+# --- prefix: 既定値と衝突したものの退避先 ---
+new_workspace = "prefix+ctrl+n"
+reload_config = "prefix+ctrl+r"
+
+# zellij の default_layout "dev" 相当 (~/.config/fish/functions/herdr-dev.fish)
+[[keys.command]]
+key = "prefix+shift+l"
+type = "shell"
+command = "fish -c herdr-dev"
