@@ -27,6 +27,7 @@ brew "tig"
 brew "neovim"
 brew "tmux"
 brew "zellij"
+brew "herdr"            # agent multiplexer (zellij 後継)
 brew "mas"              # Mac App Store CLI
 brew "defaultbrowser"   # default browser CLI
 
