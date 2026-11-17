@@ -90,6 +90,12 @@ return {
   -- https://wezfurlong.org/wezterm/config/lua/config/enable_csi_u_key_encoding.html
   enable_csi_u_key_encoding = true,
 
+  -- Kitty keyboard protocol を有効化
+  -- herdr は legacy の Alt+] (= ESC ]) を OSC の開始とみなして捨てるため、
+  -- kitty protocol で CSI 93;3u として送らせて alt+] を届ける
+  -- https://wezfurlong.org/wezterm/config/lua/config/enable_kitty_keyboard.html
+  enable_kitty_keyboard = true,
+
   -- disable_default_key_bindings = true,
 
   leader = { key="a", mods="CTRL", timeout_milliseconds = 2000 },
