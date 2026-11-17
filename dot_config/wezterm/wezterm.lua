@@ -252,5 +252,56 @@ return {
     { key = '[',   mods = 'ALT|SHIFT', action = act.MoveTabRelative(-1) },
     { key = ']', mods = 'ALT|SHIFT', action = act.MoveTabRelative(1) },
 
+  },
+
+  -- ============================================================
+  -- Mouse bindings
+  --   - Zellij などアプリ側がマウスレポートを有効化していても、
+  --     左ボタンのドラッグだけは WezTerm 側で握りつぶす（テキスト選択にする）
+  --   - Cmd(SUPER) を押している間はバイパスし、アプリ(Zellij)にイベントを通す
+  --   - ホイールスクロールには触れないので従来どおり動作
+  -- ============================================================
+  mouse_bindings = {
+    -- 左クリック開始：選択を開始（アプリへレポートしない）
+    {
+      event = { Down = { streak = 1, button = 'Left' } },
+      mods = 'NONE',
+      action = act.SelectTextAtMouseCursor 'Cell',
+      mouse_reporting = true,
+    },
+    -- 左ドラッグ：選択範囲を拡張（Zellij のリサイズ等には届かない）
+    {
+      event = { Drag = { streak = 1, button = 'Left' } },
+      mods = 'NONE',
+      action = act.ExtendSelectionToMouseCursor 'Cell',
+      mouse_reporting = true,
+    },
+    -- 左クリック解放：選択確定
+    {
+      event = { Up = { streak = 1, button = 'Left' } },
+      mods = 'NONE',
+      action = act.CompleteSelection 'PrimarySelection',
+      mouse_reporting = true,
+    },
+
+    -- Cmd(SUPER) 押下中は WezTerm の握りつぶしを無効化し、アプリ側へパススルー
+    {
+      event = { Down = { streak = 1, button = 'Left' } },
+      mods = 'SUPER',
+      action = act.DisableDefaultAssignment,
+      mouse_reporting = true,
+    },
+    {
+      event = { Drag = { streak = 1, button = 'Left' } },
+      mods = 'SUPER',
+      action = act.DisableDefaultAssignment,
+      mouse_reporting = true,
+    },
+    {
+      event = { Up = { streak = 1, button = 'Left' } },
+      mods = 'SUPER',
+      action = act.DisableDefaultAssignment,
+      mouse_reporting = true,
+    },
   }
 }
